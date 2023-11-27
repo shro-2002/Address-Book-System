@@ -10,55 +10,37 @@ public class AddressBook {
 
 		int choice = 0;
 
-		AddressBookBuilder addressBook = new AddressBookBuilder();
+		AddressBookManager addressBookManager = new AddressBookManager();
 
-		while (true) {
-			System.out.println("1. Add Contact");
-			System.out.println("2. Edit Contact");
-			System.out.println("3. Delete Contact");
-			System.out.println("4. Display Contact");
-			System.out.println("5. Exit");
+		while (choice !=4) {
+			System.out.println("1. Create Address Book");
+			System.out.println("2. Select Address Book");
+			System.out.println("3. Display all Address Books");
+			System.out.println("4. Exit");
 			System.out.print("Enter your choice: ");
 			choice = sc.nextInt();
 			switch (choice) {
 			case 1:
-				System.out.println("Enter the number of contacts you want to add: ");
-				int n = sc.nextInt();
-				for (int i = 0; i < n; i++) {
-					addressBook.getdetails();
-					System.out.println("Contact added successfully");
-				}
+				System.out.println("Enter the name of the Address Book: ");
+				String name = sc.next();
+				addressBookManager.createAddressBook(name);
 				break;
 			case 2:
-				System.out.println("Enter the first name: ");
-				String firstName = sc.next();
-
-				System.out.println("Enter the last name: ");
-				String lastName = sc.next();
-
-				addressBook.editContact(firstName, lastName);
+				System.out.println("Enter the name of the Address Book: ");
+				String name1 = sc.next();
+				addressBookManager.selectAddressBook(name1);
 				break;
 			case 3:
-				System.out.println("Enter the first name: ");
-				String firstName1 = sc.next();
-
-				System.out.println("Enter the last name: ");
-				String lastName1 = sc.next();
-
-				addressBook.deleteContact(firstName1, lastName1);
+				addressBookManager.displayAllAddressBooks();
 				break;
 			case 4:
-				addressBook.display();
-				break;
-			case 5:
-				System.exit(0);
+				System.out.println("Thank you");
 				break;
 			default:
 				System.out.println("Invalid choice");
 				break;
 			}
 		}
-
 	}
 
 }

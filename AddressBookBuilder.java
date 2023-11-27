@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /*
- * Class variables: ArrayList
+ * @Class variables: ArrayList
  * 
- * Class Methods: addContact(), getDetails(), display(),editContact(String,String),deleteContact(String,String)
- * 
- * @description: UC-2 Ability to add a new Contact to Address Book
+ * @Class Methods: addContact(), getDetails(), display(),editContact(String,String),deleteContact(String,String)
+ *  
+ * @description: Ability to Create and Manage Contacts
  */
 
 public class AddressBookBuilder {
@@ -18,7 +18,7 @@ public class AddressBookBuilder {
 	 * 
 	 * @return: None
 	 * 
-	 * @description: Ability to create a Contacts in Address Book with first and
+	 * @description: Ability to create Contacts in Address Book
 	 */
 
 	private ArrayList<Contact> contactList = new ArrayList<Contact>();
