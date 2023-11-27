@@ -22,7 +22,12 @@ public class AddressBook {
 			choice = sc.nextInt();
 			switch (choice) {
 			case 1:
-				addressBook.getdetails();
+				System.out.println("Enter the number of contacts you want to add: ");
+				int n = sc.nextInt();
+				for (int i = 0; i < n; i++) {
+					addressBook.getdetails();
+					System.out.println("Contact added successfully");
+				}
 				break;
 			case 2:
 				System.out.println("Enter the first name: ");

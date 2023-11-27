@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /*
- * Class variables: None
+ * Class variables: ArrayList
  * 
- * Class Methods: addContact(), getDetails(), display()
+ * Class Methods: addContact(), getDetails(), display(),editContact(String,String),deleteContact(String,String)
  * 
  * @description: UC-2 Ability to add a new Contact to Address Book
  */
@@ -16,7 +16,7 @@ public class AddressBookBuilder {
 	/*
 	 * @params: None
 	 * 
-	 * @return: contact
+	 * @return: None
 	 * 
 	 * @description: Ability to create a Contacts in Address Book with first and
 	 */
@@ -50,7 +50,7 @@ public class AddressBookBuilder {
 	}
 
 	/*
-	 * @params: contact
+	 * @params:
 	 * 
 	 * @return: void
 	 * 
@@ -73,7 +73,7 @@ public class AddressBookBuilder {
 	}
 
 	/*
-	 * @params: String
+	 * @params: String,String
 	 * 
 	 * @return: void
 	 * 
@@ -113,7 +113,7 @@ public class AddressBookBuilder {
 
 	}
 	/*
-	 * @params: String
+	 * @params: String,String
 	 * 
 	 * @return: void
 	 * 
@@ -121,17 +121,21 @@ public class AddressBookBuilder {
 	 */
 
 	void deleteContact(String firstName, String lastName) {
+		ArrayList<Contact> contactsToRemove = new ArrayList<>();
 		boolean contactFound = false;
 		for (Contact c : contactList) {
-			contactFound = true;
 			if (c.getFirstName().equals(firstName) && c.getLastName().equals(lastName)) {
-				contactList.remove(c);
+				contactsToRemove.add(c);
+				contactFound = true;
 
 			}
 		}
 
-		if (!contactFound) {
-			System.out.print("Contact Not Found");
+		if (contactFound) {
+			contactList.removeAll(contactsToRemove);
+			System.out.println("Contact deleted successfully.");
+		} else {
+			System.out.println("Contact not found.");
 		}
 
 	}
