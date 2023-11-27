@@ -1,5 +1,6 @@
 package com.bridgeLabs.Master;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /*
@@ -20,7 +21,9 @@ public class AddressBookBuilder {
 	 * @description: Ability to create a Contacts in Address Book with first and
 	 */
 
-	static Contact getdetails() {
+	private ArrayList<Contact> contactList = new ArrayList<Contact>();
+
+	void getdetails() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println();
 		System.out.print("Enter the first name: ");
@@ -40,22 +43,71 @@ public class AddressBookBuilder {
 		System.out.print("Enter the email: ");
 		String email = sc.next();
 
-		Contact contact = new Contact(firstName, lastName, address, city, state, zip, phoneNumber, email);
-		return contact;
-	}
-
-	static void display(Contact contact) {
 		System.out.println();
-		System.out.println("Contact Details: ");
-		System.out.println(contact.getFirstName());
-		System.out.println(contact.getLastName());
-		System.out.println(contact.getAddress());
-		System.out.println(contact.getCity());
-		System.out.println(contact.getState());
-		System.out.println(contact.getZip());
-		System.out.println(contact.getPhoneNumber());
-		System.out.println(contact.getEmail());
+
+		Contact contact = new Contact(firstName, lastName, address, city, state, zip, phoneNumber, email);
+		contactList.add(contact);
+	}
+
+	/*
+	 * @params: contact
+	 * 
+	 * @return: void
+	 * 
+	 * @description: Ability to display new Contact to Address Book
+	 */
+
+	void display() {
+		for (Contact c : contactList) {
+			System.out.println("First Name: " + c.getFirstName());
+			System.out.println("Last Name: " + c.getLastName());
+			System.out.println("Address: " + c.getAddress());
+			System.out.println("City: " + c.getCity());
+			System.out.println("State: " + c.getState());
+			System.out.println("Zip: " + c.getZip());
+			System.out.println("Phone Number: " + c.getPhoneNumber());
+			System.out.println("Email: " + c.getEmail());
+			System.out.println();
+		}
 
 	}
 
+	/*
+	 * @params: contact
+	 * 
+	 * @return: void
+	 * 
+	 * @description: Ability to edit existing contact person using their name
+	 */
+
+	void editContact(String firstName) {
+		for (Contact c : contactList) {
+			if (c.getFirstName().equals(firstName)) {
+				Scanner sc = new Scanner(System.in);
+				System.out.println("Enter the address");
+				String address = sc.next();
+				c.setAddress(address);
+				System.out.println("Enter the city");
+				String city = sc.next();
+				c.setCity(city);
+				System.out.println("Enter the state");
+				String state = sc.next();
+				c.setState(state);
+				System.out.println("Enter the zip");
+				int zip = sc.nextInt();
+				c.setZip(zip);
+				System.out.println("Enter the phone number");
+				long phoneNumber = sc.nextLong();
+				c.setPhoneNumber(phoneNumber);
+				System.out.println("Enter the email");
+				String email = sc.next();
+				c.setEmail(email);
+			}
+
+			else {
+				System.out.println("Contact not found");
+			}
+		}
+
+	}
 }
