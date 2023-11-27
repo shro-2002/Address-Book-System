@@ -12,11 +12,12 @@ public class AddressBook {
 
 		AddressBookBuilder addressBook = new AddressBookBuilder();
 
-		while (choice != 4) {
+		while (true) {
 			System.out.println("1. Add Contact");
 			System.out.println("2. Edit Contact");
-			System.out.println("3. Display Contact");
-			System.out.println("4. Exit");
+			System.out.println("3. Delete Contact");
+			System.out.println("4. Display Contact");
+			System.out.println("5. Exit");
 			System.out.print("Enter your choice: ");
 			choice = sc.nextInt();
 			switch (choice) {
@@ -25,13 +26,26 @@ public class AddressBook {
 				break;
 			case 2:
 				System.out.println("Enter the first name: ");
-				String firstName = sc.nextLine();
-				addressBook.editContact(firstName);
+				String firstName = sc.next();
+
+				System.out.println("Enter the last name: ");
+				String lastName = sc.next();
+
+				addressBook.editContact(firstName, lastName);
 				break;
 			case 3:
-				addressBook.display();
+				System.out.println("Enter the first name: ");
+				String firstName1 = sc.next();
+
+				System.out.println("Enter the last name: ");
+				String lastName1 = sc.next();
+
+				addressBook.deleteContact(firstName1, lastName1);
 				break;
 			case 4:
+				addressBook.display();
+				break;
+			case 5:
 				System.exit(0);
 				break;
 			default:

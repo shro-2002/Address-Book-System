@@ -73,16 +73,18 @@ public class AddressBookBuilder {
 	}
 
 	/*
-	 * @params: contact
+	 * @params: String
 	 * 
 	 * @return: void
 	 * 
 	 * @description: Ability to edit existing contact person using their name
 	 */
 
-	void editContact(String firstName) {
+	void editContact(String firstName, String lastName) {
+		boolean contactFound = false;
 		for (Contact c : contactList) {
-			if (c.getFirstName().equals(firstName)) {
+			if (c.getFirstName().equals(firstName) && c.getLastName().equals(lastName)) {
+				contactFound = true;
 				Scanner sc = new Scanner(System.in);
 				System.out.println("Enter the address");
 				String address = sc.next();
@@ -103,10 +105,33 @@ public class AddressBookBuilder {
 				String email = sc.next();
 				c.setEmail(email);
 			}
+		}
 
-			else {
-				System.out.println("Contact not found");
+		if (!contactFound) {
+			System.out.print("Contact Not Found");
+		}
+
+	}
+	/*
+	 * @params: String
+	 * 
+	 * @return: void
+	 * 
+	 * @description: Ability to delete a person using person's name
+	 */
+
+	void deleteContact(String firstName, String lastName) {
+		boolean contactFound = false;
+		for (Contact c : contactList) {
+			contactFound = true;
+			if (c.getFirstName().equals(firstName) && c.getLastName().equals(lastName)) {
+				contactList.remove(c);
+
 			}
+		}
+
+		if (!contactFound) {
+			System.out.print("Contact Not Found");
 		}
 
 	}
