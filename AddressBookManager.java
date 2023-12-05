@@ -131,6 +131,29 @@ public class AddressBookManager {
 	}
 
 	/*
+	 * @Description: This method is used to display the count of persons by city and
+	 * by state.
+	 * 
+	 * @param: void
+	 * 
+	 * @return: void
+	 */
+	void displayCountByCityAndState(String city, String state) {
+
+		Map<String, Integer> cityCount = addressBooks.values().stream()
+				.flatMap(addressBook -> addressBook.getContactList().stream())
+				.filter(contact -> contact.getCity().equalsIgnoreCase(city))
+				.collect(Collectors.groupingBy(Contact::getCity, Collectors.summingInt(e -> 1)));
+		System.out.println("Number of contacts in " + city + ": " + cityCount.get(city));
+
+		Map<String, Integer> stateCount = addressBooks.values().stream()
+				.flatMap(addressBook -> addressBook.getContactList().stream())
+				.filter(contact -> contact.getState().equalsIgnoreCase(state))
+				.collect(Collectors.groupingBy(Contact::getState, Collectors.summingInt(e -> 1)));
+		System.out.println("Number of contacts in " + state + ": " + stateCount.get(state));
+	}
+
+	/*
 	 * @Description: This method is used to manage the address book.
 	 * 
 	 * @param: void
