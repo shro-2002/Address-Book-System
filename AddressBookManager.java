@@ -2,6 +2,7 @@ package com.bridgeLabs.Master;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -19,6 +20,8 @@ public class AddressBookManager {
 
 	private Map<String, AddressBookBuilder> addressBooks = new HashMap<>();
 	AddressBookBuilder currentAddressBook;
+	private Map<String, List<Contact>> cityPersonDictionary = new HashMap<>();
+	private Map<String, List<Contact>> statePersonDictionary = new HashMap<>();
 
 	/*
 	 * @Description: This method is used to create a new address book.
@@ -73,46 +76,58 @@ public class AddressBookManager {
 	}
 
 	/*
-	 * @Description: Ability to search Person in a City or State across the multiple
-	 * AddressBook hashmaps using Streams
+	 * @Description: This method is used to search a person in a city and display
+	 * all the persons in that city.
 	 * 
-	 * @Params: Contact lists
+	 * @param: String
 	 * 
-	 * @Return: void
+	 * @return: void
 	 */
 
-	public void searchPersonInCityOrState(String city, String state) {
+	void viewPersonsByCity(String city) {
+		List<Contact> personsInCity = addressBooks.values().stream()
+				.flatMap(addressBook -> addressBook.getContactList().stream())
+				.filter(contact -> contact.getCity().equalsIgnoreCase(city)).collect(Collectors.toList());
 
-		ArrayList<Contact> contactsInCity = new ArrayList<>();
-		ArrayList<Contact> contactsInState = new ArrayList<>();
-		// traversing hashmap
-		for (AddressBookBuilder addressBook : addressBooks.values()) {
-			// selecting the contacts having same city
-			contactsInCity.addAll(addressBook.getContactList().stream()
-					.filter(contact -> contact.getCity().equals(city)).collect(Collectors.toList()));
-			// selecting the contacts having same state
-			contactsInState.addAll(addressBook.getContactList().stream()
-					.filter(contact -> contact.getState().equals(state)).collect(Collectors.toList()));
+		cityPersonDictionary.put(city, personsInCity); // Store in the dictionary
+		displayPersons(city, cityPersonDictionary);
+	}
+
+	/*
+	 * @Description: This method is used to search a person in a state and display
+	 * all the persons in that state.
+	 * 
+	 * @param: String
+	 * 
+	 * @return: void
+	 */
+	void viewPersonsByState(String state) {
+		List<Contact> personsInState = addressBooks.values().stream()
+				.flatMap(addressBook -> addressBook.getContactList().stream())
+				.filter(contact -> contact.getState().equalsIgnoreCase(state)).collect(Collectors.toList());
+
+		statePersonDictionary.put(state, personsInState); // Store in the dictionary
+		displayPersons(state, statePersonDictionary);
+	}
+
+	/*
+	 * @Description: This method is used to display all the persons in a city or
+	 * state.
+	 * 
+	 * @param: String, List
+	 * 
+	 * @return: void
+	 */
+	private void displayPersons(String location, Map<String, List<Contact>> dictionary) {
+		List<Contact> persons = dictionary.get(location);
+		if (persons != null) {
+			System.out.println("Persons in " + location + ":");
+			for (Contact person : persons) {
+				System.out.println("- " + person.getFirstName() + " " + person.getLastName());
+			}
+		} else {
+			System.out.println("No persons found in " + location);
 		}
-
-		// Case: No same cities or states
-		if (contactsInCity.size() == 0 || contactsInState.size() == 0) {
-			System.out.println("No contacts found in city " + city + " or state " + state);
-			return;
-		}
-
-		System.out.println("Contacts in city " + city + ":");
-		for (Contact contact : contactsInCity) {
-			System.out.println(contact.getFirstName() + " " + contact.getLastName());
-		}
-
-		System.out.println("Contacts in state " + state + ":");
-		for (Contact contact : contactsInState) {
-			System.out.println(contact.getFirstName() + " " + contact.getLastName());
-		}
-
-		System.out.println("Total contacts in city " + city + ": " + contactsInCity.size());
-		System.out.println("Total contacts in state " + state + ": " + contactsInState.size());
 	}
 
 	/*
