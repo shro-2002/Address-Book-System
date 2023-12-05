@@ -2,8 +2,10 @@ package com.bridgeLabs.Master;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 /*
  * @Class variables: ArrayList
@@ -163,6 +165,56 @@ public class AddressBookBuilder {
 
 		System.out.println("Sorted Contacts Alphabetically by Name:");
 		sortedContacts.forEach(System.out::println);
+	}
+
+	/*
+	 * @Description: Helper function to sort contacts by specific Comparator.
+	 *
+	 * @param: Comparator
+	 *
+	 * @return: List<Contact>
+	 */
+	private List<Contact> sortContactsByComparator(Comparator<Contact> comparator) {
+		return contactList.stream().sorted(comparator).collect(Collectors.toList());
+	}
+
+	/*
+	 * @Description: Ability to display sorted contacts by city.
+	 *
+	 * @param: None
+	 *
+	 * @return: void
+	 */
+	public void displaySortedContactsByCity() {
+		List<Contact> sortedContactsByCity = sortContactsByComparator(Comparator.comparing(Contact::getCity));
+		System.out.println("Sorted Contacts by City:");
+		sortedContactsByCity.forEach(System.out::println);
+	}
+
+	/*
+	 * @Description: Ability to display sorted contacts by state.
+	 *
+	 * @param: None
+	 *
+	 * @return: void
+	 */
+	public void displaySortedContactsByState() {
+		List<Contact> sortedContactsByState = sortContactsByComparator(Comparator.comparing(Contact::getState));
+		System.out.println("Sorted Contacts by State:");
+		sortedContactsByState.forEach(System.out::println);
+	}
+
+	/*
+	 * @Description: Ability to display sorted contacts by zip.
+	 *
+	 * @param: None
+	 *
+	 * @return: void
+	 */
+	public void displaySortedContactsByZip() {
+		List<Contact> sortedContactsByZip = sortContactsByComparator(Comparator.comparingInt(Contact::getZip));
+		System.out.println("Sorted Contacts by Zip:");
+		sortedContactsByZip.forEach(System.out::println);
 	}
 
 	/*

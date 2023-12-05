@@ -1,5 +1,6 @@
 package com.bridgeLabs.Master;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -164,13 +165,16 @@ public class AddressBookManager {
 
 		int choice = 0;
 
-		while (choice != 6) {
+		while (choice != 9) {
 			System.out.println("1. Add Contact");
 			System.out.println("2. Edit Contact");
-			System.out.println("3. Sort Contacts according to Name");
-			System.out.println("4. Delete Contact");
-			System.out.println("5. Display Contact");
-			System.out.println("6. Exit");
+			System.out.println("3. Sort Contacts by Name");
+			System.out.println("4. Sort Contacts by City");
+			System.out.println("5. Sort Contacts by State");
+			System.out.println("6. Sort Contacts by Zip");
+			System.out.println("7. Delete Contact");
+			System.out.println("8. Display Contact");
+			System.out.println("9. Exit");
 			System.out.print("Enter your choice: ");
 			choice = sc.nextInt();
 			switch (choice) {
@@ -193,8 +197,17 @@ public class AddressBookManager {
 			case 3:
 				currentAddressBook.displaySortedContacts();
 				break;
-
 			case 4:
+				currentAddressBook.displaySortedContactsByCity();
+				break;
+			case 5:
+				currentAddressBook.displaySortedContactsByState();
+				break;
+			case 6:
+				currentAddressBook.displaySortedContactsByZip();
+				break;
+
+			case 7:
 				System.out.println("Enter the first name: ");
 				String firstName1 = sc.next();
 
@@ -203,10 +216,10 @@ public class AddressBookManager {
 
 				currentAddressBook.deleteContact(firstName1, lastName1);
 				break;
-			case 5:
+			case 8:
 				currentAddressBook.display();
 				break;
-			case 6:
+			case 9:
 				System.out.println("Exiting the Book");
 				break;
 			default:
