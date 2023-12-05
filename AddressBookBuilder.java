@@ -1,9 +1,8 @@
 package com.bridgeLabs.Master;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.Scanner;
 
 /*
@@ -45,7 +44,6 @@ public class AddressBookBuilder {
 		long phoneNumber = sc.nextLong();
 		System.out.print("Enter the email: ");
 		String email = sc.next();
-
 		System.out.println();
 
 		Contact contact = new Contact(firstName, lastName, address, city, state, zip, phoneNumber, email);
@@ -56,6 +54,7 @@ public class AddressBookBuilder {
 		} else {
 			System.out.println("Duplicate entry. Contact not added.");
 		}
+
 	}
 
 	/*
@@ -113,6 +112,7 @@ public class AddressBookBuilder {
 				System.out.println("Enter the email");
 				String email = sc.next();
 				c.setEmail(email);
+				sc.close();
 			}
 
 		}
@@ -148,6 +148,21 @@ public class AddressBookBuilder {
 			System.out.println("Contact not found.");
 		}
 
+	}
+
+	/*
+	 * @Description: Ability to display sorted contacts alphabetically by name.
+	 *
+	 * @param: None
+	 *
+	 * @return: void
+	 */
+	public void displaySortedContacts() {
+		List<Contact> sortedContacts = new ArrayList<>(contactList);
+		Collections.sort(sortedContacts);
+
+		System.out.println("Sorted Contacts Alphabetically by Name:");
+		sortedContacts.forEach(System.out::println);
 	}
 
 	/*

@@ -10,7 +10,7 @@ import java.util.Objects;
  * @description: UC-1 Ability to create a Contacts in Address Book with first and last names, address,city, state, zip, phone number and email
  */
 
-public class Contact {
+public class Contact implements Comparable<Contact> {
 
 	private String firstName;
 	private String lastName;
@@ -218,6 +218,13 @@ public class Contact {
 		this.email = email;
 	}
 
+	@Override
+	public String toString() {
+		return "Name: " + getFirstName() + " " + getLastName() + "\nAddress: " + getAddress() + "\nCity: " + getCity()
+				+ "\nState: " + getState() + "\nZip: " + getZip() + "\nPhone Number: " + getPhoneNumber() + "\nEmail: "
+				+ getEmail() + "\n";
+	}
+
 	/*
 	 * @Description: Overriding the toString method to print the contact details
 	 * 
@@ -240,6 +247,14 @@ public class Contact {
 	@Override
 	public int hashCode() {
 		return Objects.hash(firstName, lastName);
+	}
+
+	@Override
+	public int compareTo(Contact o) {
+
+		String fullName = this.getFirstName() + " " + this.getLastName();
+		String otherFullName = o.getFirstName() + " " + o.getLastName();
+		return fullName.compareTo(otherFullName);
 	}
 
 }

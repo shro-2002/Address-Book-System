@@ -1,6 +1,5 @@
 package com.bridgeLabs.Master;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -165,12 +164,13 @@ public class AddressBookManager {
 
 		int choice = 0;
 
-		while (choice != 5) {
+		while (choice != 6) {
 			System.out.println("1. Add Contact");
 			System.out.println("2. Edit Contact");
-			System.out.println("3. Delete Contact");
-			System.out.println("4. Display Contact");
-			System.out.println("5. Exit");
+			System.out.println("3. Sort Contacts according to Name");
+			System.out.println("4. Delete Contact");
+			System.out.println("5. Display Contact");
+			System.out.println("6. Exit");
 			System.out.print("Enter your choice: ");
 			choice = sc.nextInt();
 			switch (choice) {
@@ -191,6 +191,10 @@ public class AddressBookManager {
 				currentAddressBook.editContact(firstName, lastName);
 				break;
 			case 3:
+				currentAddressBook.displaySortedContacts();
+				break;
+
+			case 4:
 				System.out.println("Enter the first name: ");
 				String firstName1 = sc.next();
 
@@ -199,10 +203,10 @@ public class AddressBookManager {
 
 				currentAddressBook.deleteContact(firstName1, lastName1);
 				break;
-			case 4:
+			case 5:
 				currentAddressBook.display();
 				break;
-			case 5:
+			case 6:
 				System.out.println("Exiting the Book");
 				break;
 			default:
