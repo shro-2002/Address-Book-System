@@ -5,24 +5,24 @@ import java.util.Map;
 import java.util.Scanner;
 
 /*
- * Class Variables: HashMap, AddressBookBuilder
+ * @Description: This class is used to create, select and display all the address books.
  * 
- * Class Methods: createAddressBook, selectAddressBook, displayAllAddressBooks, manageAddressBook
+ * @Class Variables: HashMap
  * 
- * Description: This class is used to create, select and display all the address books.
+ * @Class Methods: createAddressBook, selectAddressBook, displayAllAddressBooks, manageAddressBook
+
  */
 
 public class AddressBookManager {
 
 	private Map<String, AddressBookBuilder> addressBooks = new HashMap<>();
-	private AddressBookBuilder currentAddressBook;
 
 	/*
+	 * @Description: This method is used to create a new address book.
+	 * 
 	 * @param: String
 	 * 
 	 * @return: void
-	 * 
-	 * @Description: This method is used to create a new address book.
 	 */
 
 	void createAddressBook(String Name) {
@@ -37,16 +37,15 @@ public class AddressBookManager {
 	}
 
 	/*
+	 * @Description: This method is used to select an existing address book.
+	 * 
 	 * @param: String
 	 * 
 	 * @return: void
-	 * 
-	 * @Description: This method is used to select an existing address book.
 	 */
 
 	void selectAddressBook(String Name) {
 		if (addressBooks.containsKey(Name)) {
-			currentAddressBook = addressBooks.get(Name);
 			System.out.println("Selected Address Book: " + Name);
 			manageAddressBook();
 		} else {
@@ -55,11 +54,11 @@ public class AddressBookManager {
 	}
 
 	/*
+	 * @Description: This method is used to display all the address books.
+	 * 
 	 * @param: void
 	 * 
 	 * @return: void
-	 * 
-	 * @Description: This method is used to display all the address books.
 	 */
 	void displayAllAddressBooks() {
 		System.out.println("All Address Books:");
@@ -70,11 +69,11 @@ public class AddressBookManager {
 	}
 
 	/*
+	 * @Description: This method is used to manage the address book.
+	 * 
 	 * @param: void
 	 * 
 	 * @return: void
-	 * 
-	 * @Description: This method is used to manage the address book.
 	 */
 	void manageAddressBook() {
 		Scanner sc = new Scanner(System.in);
@@ -97,7 +96,6 @@ public class AddressBookManager {
 				int n = sc.nextInt();
 				for (int i = 0; i < n; i++) {
 					addressBook.getdetails();
-					System.out.println("Contact added successfully");
 				}
 				break;
 			case 2:

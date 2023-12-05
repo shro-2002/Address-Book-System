@@ -1,6 +1,7 @@
 package com.bridgeLabs.Master;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 /*
@@ -14,11 +15,11 @@ import java.util.Scanner;
 public class AddressBookBuilder {
 
 	/*
+	 * @Description: Ability to create Contacts in Address Book
+	 * 
 	 * @params: None
 	 * 
 	 * @return: None
-	 * 
-	 * @description: Ability to create Contacts in Address Book
 	 */
 
 	private ArrayList<Contact> contactList = new ArrayList<Contact>();
@@ -46,15 +47,22 @@ public class AddressBookBuilder {
 		System.out.println();
 
 		Contact contact = new Contact(firstName, lastName, address, city, state, zip, phoneNumber, email);
+
+		if (!isDuplicate(contact)) {
+			contactList.add(contact);
+			System.out.println("Contact added successfully.");
+		} else {
+			System.out.println("Duplicate entry. Contact not added.");
+		}
 		contactList.add(contact);
 	}
 
 	/*
-	 * @params:
+	 * @Description: Ability to display new Contact to Address Book
 	 * 
-	 * @return: void
+	 * @Params:None
 	 * 
-	 * @description: Ability to display new Contact to Address Book
+	 * @Return: void
 	 */
 
 	void display() {
@@ -73,11 +81,11 @@ public class AddressBookBuilder {
 	}
 
 	/*
-	 * @params: String,String
+	 * @Description: Ability to edit existing contact person using their name
 	 * 
-	 * @return: void
+	 * @Params: String,String
 	 * 
-	 * @description: Ability to edit existing contact person using their name
+	 * @Return: void
 	 */
 
 	void editContact(String firstName, String lastName) {
@@ -105,6 +113,7 @@ public class AddressBookBuilder {
 				String email = sc.next();
 				c.setEmail(email);
 			}
+
 		}
 
 		if (!contactFound) {
@@ -113,11 +122,11 @@ public class AddressBookBuilder {
 
 	}
 	/*
-	 * @params: String,String
+	 * @Description: Ability to delete a person using person's name
 	 * 
-	 * @return: void
+	 * @Params: String,String
 	 * 
-	 * @description: Ability to delete a person using person's name
+	 * @Return: void
 	 */
 
 	void deleteContact(String firstName, String lastName) {
@@ -138,5 +147,18 @@ public class AddressBookBuilder {
 			System.out.println("Contact not found.");
 		}
 
+	}
+
+	/*
+	 * @Description: UC-7: Ability to check for duplicate entry
+	 * 
+	 * @Params: Contact
+	 * 
+	 * @Return: boolean
+	 */
+
+	private boolean isDuplicate(Contact newContact) {
+		return contactList.stream().anyMatch(contact -> contact.getFirstName().equals(newContact.getFirstName())
+				&& Objects.equals(contact.getLastName(), newContact.getLastName()));
 	}
 }
