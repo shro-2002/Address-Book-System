@@ -237,4 +237,9 @@ public class Contact {
 				&& this.getLastName().equalsIgnoreCase(((Contact) obj).getLastName());
 	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(firstName, lastName);
+	}
+
 }

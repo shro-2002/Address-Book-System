@@ -1,6 +1,8 @@
 package com.bridgeLabs.Master;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -54,7 +56,6 @@ public class AddressBookBuilder {
 		} else {
 			System.out.println("Duplicate entry. Contact not added.");
 		}
-		contactList.add(contact);
 	}
 
 	/*
@@ -150,7 +151,7 @@ public class AddressBookBuilder {
 	}
 
 	/*
-	 * @Description: UC-7: Ability to check for duplicate entry
+	 * @Description: Ability to check for duplicate entry
 	 * 
 	 * @Params: Contact
 	 * 
@@ -159,6 +160,10 @@ public class AddressBookBuilder {
 
 	private boolean isDuplicate(Contact newContact) {
 		return contactList.stream().anyMatch(contact -> contact.getFirstName().equals(newContact.getFirstName())
-				&& Objects.equals(contact.getLastName(), newContact.getLastName()));
+				&& contact.getLastName().equals(newContact.getLastName()));
+	}
+
+	public ArrayList<Contact> getContactList() {
+		return contactList;
 	}
 }

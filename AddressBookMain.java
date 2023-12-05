@@ -12,11 +12,12 @@ public class AddressBookMain {
 
 		AddressBookManager addressBookManager = new AddressBookManager();
 
-		while (choice !=4) {
+		while (choice != 5) {
 			System.out.println("1. Create Address Book");
 			System.out.println("2. Select Address Book");
 			System.out.println("3. Display all Address Books");
-			System.out.println("4. Exit");
+			System.out.println("4. Search Person in City or State");
+			System.out.println("5. Exit");
 			System.out.print("Enter your choice: ");
 			choice = sc.nextInt();
 			switch (choice) {
@@ -34,6 +35,13 @@ public class AddressBookMain {
 				addressBookManager.displayAllAddressBooks();
 				break;
 			case 4:
+				System.out.println("Enter the city: ");
+				String city = sc.next();
+				System.out.println("Enter the state: ");
+				String state = sc.next();
+				addressBookManager.searchPersonInCityOrState(city, state);
+				break;
+			case 5:
 				System.out.println("Thank you");
 				break;
 			default:

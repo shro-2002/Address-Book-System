@@ -1,8 +1,10 @@
 package com.bridgeLabs.Master;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 /*
  * @Description: This class is used to create, select and display all the address books.
@@ -16,6 +18,7 @@ import java.util.Scanner;
 public class AddressBookManager {
 
 	private Map<String, AddressBookBuilder> addressBooks = new HashMap<>();
+	AddressBookBuilder currentAddressBook;
 
 	/*
 	 * @Description: This method is used to create a new address book.
@@ -46,6 +49,7 @@ public class AddressBookManager {
 
 	void selectAddressBook(String Name) {
 		if (addressBooks.containsKey(Name)) {
+			currentAddressBook = addressBooks.get(Name);
 			System.out.println("Selected Address Book: " + Name);
 			manageAddressBook();
 		} else {
@@ -69,6 +73,49 @@ public class AddressBookManager {
 	}
 
 	/*
+	 * @Description: Ability to search Person in a City or State across the multiple
+	 * AddressBook hashmaps using Streams
+	 * 
+	 * @Params: Contact lists
+	 * 
+	 * @Return: void
+	 */
+
+	public void searchPersonInCityOrState(String city, String state) {
+
+		ArrayList<Contact> contactsInCity = new ArrayList<>();
+		ArrayList<Contact> contactsInState = new ArrayList<>();
+		// traversing hashmap
+		for (AddressBookBuilder addressBook : addressBooks.values()) {
+			// selecting the contacts having same city
+			contactsInCity.addAll(addressBook.getContactList().stream()
+					.filter(contact -> contact.getCity().equals(city)).collect(Collectors.toList()));
+			// selecting the contacts having same state
+			contactsInState.addAll(addressBook.getContactList().stream()
+					.filter(contact -> contact.getState().equals(state)).collect(Collectors.toList()));
+		}
+
+		// Case: No same cities or states
+		if (contactsInCity.size() == 0 || contactsInState.size() == 0) {
+			System.out.println("No contacts found in city " + city + " or state " + state);
+			return;
+		}
+
+		System.out.println("Contacts in city " + city + ":");
+		for (Contact contact : contactsInCity) {
+			System.out.println(contact.getFirstName() + " " + contact.getLastName());
+		}
+
+		System.out.println("Contacts in state " + state + ":");
+		for (Contact contact : contactsInState) {
+			System.out.println(contact.getFirstName() + " " + contact.getLastName());
+		}
+
+		System.out.println("Total contacts in city " + city + ": " + contactsInCity.size());
+		System.out.println("Total contacts in state " + state + ": " + contactsInState.size());
+	}
+
+	/*
 	 * @Description: This method is used to manage the address book.
 	 * 
 	 * @param: void
@@ -79,8 +126,6 @@ public class AddressBookManager {
 		Scanner sc = new Scanner(System.in);
 
 		int choice = 0;
-
-		AddressBookBuilder addressBook = new AddressBookBuilder();
 
 		while (choice != 5) {
 			System.out.println("1. Add Contact");
@@ -95,7 +140,7 @@ public class AddressBookManager {
 				System.out.println("Enter the number of contacts you want to add: ");
 				int n = sc.nextInt();
 				for (int i = 0; i < n; i++) {
-					addressBook.getdetails();
+					currentAddressBook.getdetails();
 				}
 				break;
 			case 2:
@@ -105,7 +150,7 @@ public class AddressBookManager {
 				System.out.println("Enter the last name: ");
 				String lastName = sc.next();
 
-				addressBook.editContact(firstName, lastName);
+				currentAddressBook.editContact(firstName, lastName);
 				break;
 			case 3:
 				System.out.println("Enter the first name: ");
@@ -114,10 +159,10 @@ public class AddressBookManager {
 				System.out.println("Enter the last name: ");
 				String lastName1 = sc.next();
 
-				addressBook.deleteContact(firstName1, lastName1);
+				currentAddressBook.deleteContact(firstName1, lastName1);
 				break;
 			case 4:
-				addressBook.display();
+				currentAddressBook.display();
 				break;
 			case 5:
 				System.out.println("Exiting the Book");
