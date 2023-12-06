@@ -1,13 +1,9 @@
 package com.bridgeLabs.Master;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.util.Collection;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -128,8 +124,6 @@ public class AddressBookManager {
 
 		try {
 			List<String> lines = Files.readAllLines(filePath);
-
-			// Print each line (contact) on the console
 			lines.forEach(System.out::println);
 
 		} catch (IOException e) {
