@@ -1,5 +1,12 @@
 package com.bridgeLabs.Master;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -73,6 +80,61 @@ public class AddressBookManager {
 			System.out.println("- " + name);
 		}
 
+	}
+
+	/*
+	 * @Description: Ability to write the Address Book with Persons Contact into a
+	 * File and the file in a directory using File IO
+	 * 
+	 * @Params: String
+	 * 
+	 * @Return: void
+	 */
+
+	void writeContactstoFile() {
+		Path directoryPath = Paths.get("AddressBookFiles");
+
+		try {
+			Files.createDirectories(directoryPath);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		addressBooks.forEach((addressBookName, addressBook) -> {
+			Path filePath = Paths.get("AddressBookFiles", addressBookName + ".txt");
+
+			try {
+				Files.write(filePath,
+						addressBook.getContactList().stream().map(Contact::toString).collect(Collectors.toList()));
+
+				System.out.println("Contacts written to file for Address Book: " + addressBookName);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		});
+	}
+
+	/*
+	 * @Description: Ability to read the Address Book with Persons Contact into a
+	 * File using File IO
+	 * 
+	 * @Params: String
+	 * 
+	 * @Return: void
+	 */
+
+	void readContactsFromFile(String addressBookName) {
+		Path filePath = Paths.get("AddressBookFiles", addressBookName + ".txt");
+
+		try {
+			List<String> lines = Files.readAllLines(filePath);
+
+			// Print each line (contact) on the console
+			lines.forEach(System.out::println);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/*
@@ -195,7 +257,7 @@ public class AddressBookManager {
 				currentAddressBook.editContact(firstName, lastName);
 				break;
 			case 3:
-				currentAddressBook.displaySortedContacts();
+				currentAddressBook.displaySortedContactsbyName();
 				break;
 			case 4:
 				currentAddressBook.displaySortedContactsByCity();

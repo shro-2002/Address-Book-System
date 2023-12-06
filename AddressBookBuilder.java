@@ -1,5 +1,9 @@
 package com.bridgeLabs.Master;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -26,6 +30,7 @@ public class AddressBookBuilder {
 	 */
 
 	private ArrayList<Contact> contactList = new ArrayList<Contact>();
+	private static final String FILE_NAME = "AddressBook.txt";
 
 	void getdetails() {
 		Scanner sc = new Scanner(System.in);
@@ -124,6 +129,7 @@ public class AddressBookBuilder {
 		}
 
 	}
+
 	/*
 	 * @Description: Ability to delete a person using person's name
 	 * 
@@ -159,7 +165,7 @@ public class AddressBookBuilder {
 	 *
 	 * @return: void
 	 */
-	public void displaySortedContacts() {
+	public void displaySortedContactsbyName() {
 		List<Contact> sortedContacts = new ArrayList<>(contactList);
 		Collections.sort(sortedContacts);
 
